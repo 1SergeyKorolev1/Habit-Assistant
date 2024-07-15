@@ -11,11 +11,7 @@ class HabitsCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         habit = serializer.save()
         habit.owner = self.request.user
-        if habit.connection_habit and habit.reward:
-            print('нельзя заполнять связанную привычку и вознаграждение одновременно')
-        else:
-            print('теперь все можно сохранять')
-
+        habit.save()
 
 class HabitsListAPIView(generics.ListAPIView):
     serializer_class = HabitSerializer

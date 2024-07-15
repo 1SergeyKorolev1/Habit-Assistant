@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from habits.models import Habit
-from habits.validators import SimultaneousSelection, validate_duration
+from habits.validators import SimultaneousSelection, validate_duration, ConnectionHabitCheck
 
 
 class HabitSerializer(ModelSerializer):
@@ -12,7 +12,8 @@ class HabitSerializer(ModelSerializer):
         fields = "__all__"
 
         validators = [
-            SimultaneousSelection("connection_habit", "reward")
+            SimultaneousSelection("connection_habit", "reward"),
+            ConnectionHabitCheck()
         ]
 
 
