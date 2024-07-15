@@ -1,5 +1,5 @@
 from rest_framework.exceptions import ValidationError
-
+from datetime import datetime
 
 class SimultaneousSelection:
     """Валидация на совместный выбор 'связанной привычки' и 'вознаграждения'."""
@@ -8,7 +8,11 @@ class SimultaneousSelection:
         self.field_2 = reward
 
     def __call__(self, habit):
-        if habit.get("connection_habit") and habit.get("reward"):
+        if habit.get(self.field_1) and habit.get(self.field_2):
             raise ValidationError(
                 "Нельзя одновременно выбирать связанную привычку и вознаграждение"
             )
+
+def validate_duration(duration):
+    if duration and duration > 120:
+        raise ValidationError("время выполнения не должно превышать 120 секунд")
