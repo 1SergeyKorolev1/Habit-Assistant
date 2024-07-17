@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'django_celery_beat',
 
     'habits',
     'users',
@@ -150,4 +151,20 @@ AUTH_USER_MODEL = "users.User"
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=9999),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+# Celery Configuration Options
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+# Celery settings
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'habits.tasks.tg_message',  # Путь к задаче
+        'schedule': timedelta(seconds=10),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
 }
