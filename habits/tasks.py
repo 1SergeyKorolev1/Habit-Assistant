@@ -10,10 +10,9 @@ from users.models import User
 @shared_task
 def tg_message():
     users = User.objects.all()
-    habits = Habit.objects.all()
-    current_time = datetime.datetime.now().time()
 
     for user in users:
+        habits = Habit.objects.filter(owner=user)
         for habit in habits:
             if habit.owner == user:
                 chat_id = user.tg_chat_id
