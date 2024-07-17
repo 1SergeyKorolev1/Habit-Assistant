@@ -27,4 +27,4 @@ def tg_message():
                         if habit.check_periodicity == periodicity:
                             habit.check_periodicity = 0
                             habit.save()
-                            send_telegram_message(chat_id, f"Пора выполнить привычку:{habit}")
+                            send_telegram_message(chat_id, f"Пора выполнить привычку: {habit}")
