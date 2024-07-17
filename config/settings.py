@@ -168,3 +168,5 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(seconds=10),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
